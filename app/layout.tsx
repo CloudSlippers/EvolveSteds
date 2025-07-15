@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EvolveSteds",
+  title: "EvolveSteds1",
   description: "Research-based supplements for elite transformation.",
 };
 
