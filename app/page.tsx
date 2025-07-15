@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import Link from 'next/link';
 
 type Product = {
   id: number;
@@ -21,22 +22,21 @@ export default function Home() {
   ];
 
   const filePath = path.join(process.cwd(), 'data/products.json');
-  const products: Product[] = JSON.parse(fs.readFileSync(filePath, 'utf8')).slice(0, 4); // first 4
+  const products: Product[] = JSON.parse(fs.readFileSync(filePath, 'utf8')).slice(0, 4);
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-16 text-center">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6">
-        EvolveSteds
-      </h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6">EvolveSteds</h1>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed text-lg">
         Research-backed performance enhancers designed for elite transformation.
       </p>
-      <a
-        Link="/products"
+
+      <Link
+        href="/products"
         className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-3 rounded-full font-semibold hover:opacity-80 transition"
       >
         Browse Products
-      </a>
+      </Link>
 
       {/* Features grid */}
       <section className="mt-16 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -73,7 +73,7 @@ export default function Home() {
               {product.title}
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">{product.price}</p>
-          </a>
+          </Link>
         ))}
       </section>
     </main>
