@@ -1,3 +1,4 @@
+'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -22,6 +23,7 @@ export default function Navbar({
       <div className="hidden md:flex items-center space-x-6 text-lg">
         <Link href="/" className="hover:text-black dark:hover:text-white">Home</Link>
         <Link href="/about" className="hover:text-black dark:hover:text-white">About</Link>
+        <Link href="/products" className="hover:text-black dark:hover:text-white">Products</Link>
         <Link href="/faq" className="hover:text-black dark:hover:text-white">FAQ</Link>
         <button
           onClick={toggleTheme}
@@ -43,6 +45,7 @@ export default function Navbar({
           <div className="flex flex-col px-6 py-4 space-y-4 text-lg">
             <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
             <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link href="/products" onClick={() => setMenuOpen(false)}>Products</Link>
             <Link href="/faq" onClick={() => setMenuOpen(false)}>FAQ</Link>
             <button
               onClick={() => {
