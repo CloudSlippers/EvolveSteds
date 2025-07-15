@@ -6,7 +6,7 @@ type WhatsAppButtonProps = {
 };
 
 export default function WhatsAppButton({ productTitle, productSlug }: WhatsAppButtonProps) {
-  const whatsappNumber = "447765333041"; //"447561669494"; // replace with your WhatsApp number (incl country code, no +)
+  const whatsappNumber = "447561669494"; // replace with your WhatsApp number (incl country code, no +)
 
   const message = `Hi, I want to order ${productTitle} from https://evolvesteds.com/products/${productSlug}`;
 
