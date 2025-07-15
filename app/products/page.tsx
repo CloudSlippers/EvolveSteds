@@ -1,46 +1,29 @@
-// app/products/[id]/page.tsx
-import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 import products from '@/data/products.json';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export function generateStaticParams() {
-  return products.map((p) => ({
-    id: String(p.id),
-  }));
-}
-
-export default function ProductPage({ params }: Props) {
-  const product = products.find((p) => String(p.id) === params.id);
-
-  if (!product) return notFound();
-
+export default function ProductsPage() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16 text-center">
-      <Image
-        src={product.image}
-        alt={product.title}
-        width={400}
-        height={400}
-        className="mx-auto mb-6 rounded"
-        unoptimized
-      />
-      <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-      <p className="text-lg text-gray-500 dark:text-gray-300 mb-6">{product.price}</p>
-
-      <a
-        href={`https://wa.me/447000000000?text=I'm%20interested%20in%20${encodeURIComponent(product.title)}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition"
-      >
-        Place Order on WhatsApp
-      </a>
+    <main className="max-w-6xl mx-auto p-6">
+      <h1 className="text-4xl font-bold mb-8">Our Products</h1>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {products.map((p) => (
+          <Link href={`/products/${p.id}`} key={p.id} className="block">
+            <div className="border border-zinc-700 bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer">
+              <Image
+                src={p.image}
+                alt={p.title}
+                width={300}
+                height={300}
+                className="w-full h-40 object-cover mb-4 rounded"
+                unoptimized
+              />
+              <h3 className="font-semibold text-white text-sm">{p.title}</h3>
+              <p className="text-zinc-400 text-sm">{p.price}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </main>
   );
 }

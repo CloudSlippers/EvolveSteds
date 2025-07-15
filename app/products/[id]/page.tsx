@@ -1,29 +1,39 @@
 import products from '@/data/products.json';
-import Link from 'next/link';
+import Image from 'next/image';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
-export async function generateStaticParams() {
-  return products.map((p) => ({ id: p.id.toString() }));
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export function generateStaticParams() {
+  return products.map((p) => ({
+    id: p.id.toString(),
+  }));
 }
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+export default function ProductPage({ params }: Props) {
   const product = products.find((p) => p.id.toString() === params.id);
-  if (!product) return <div>Product not found.</div>;
 
-  const whatsappLink = `https://wa.me/447123456789?text=Hi, I'm interested in ordering: ${encodeURIComponent(product.title)} - ${encodeURIComponent('https://evolvesteds.com/products/' + product.id)}`;
+  if (!product) {
+    return <div>Product not found.</div>;
+  }
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
-      <img src={product.image} alt={product.title} className="w-full rounded mb-4" />
-      <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
-      <p className="text-lg text-zinc-400 mb-4">{product.price}</p>
-      <a
-        href={whatsappLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block bg-green-500 text-white px-6 py-3 rounded hover:opacity-80 transition"
-      >
-        📦 Place Order via WhatsApp
-      </a>
+    <main className="max-w-4xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">{product.title}</h1>
+      <Image
+        src={product.image}
+        alt={product.title}
+        width={400}
+        height={400}
+        className="rounded mb-6 object-contain"
+        unoptimized
+      />
+      <p className="mb-6 text-lg font-semibold">{product.price}</p>
+      <WhatsAppButton productTitle={product.title} />
     </main>
   );
 }
