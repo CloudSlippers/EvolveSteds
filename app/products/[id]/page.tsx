@@ -1,11 +1,13 @@
+// app/products/[id]/page.tsx
 import products from '@/data/products.json';
 import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
-type Props = {
+type PageProps = {
   params: {
     id: string;
   };
+  // optional searchParams if used
 };
 
 export function generateStaticParams() {
@@ -14,7 +16,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ProductPage({ params }: Props) {
+export default function ProductPage({ params }: PageProps) {
   const product = products.find((p) => p.id.toString() === params.id);
 
   if (!product) {
