@@ -60,7 +60,7 @@ export default function FAQ() {
           <div key={i} className="rounded-lg overflow-hidden border border-gray-700">
             <button
               onClick={() => toggle(i)}
-              className="w-full flex justify-between items-center px-6 py-4 text-left border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full flex justify-between items-center px-6 py-4 text-left border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:cursor-pointer"
             >
               <span className="font-semibold text-lg">{question}</span>
               <svg

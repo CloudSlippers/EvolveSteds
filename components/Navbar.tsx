@@ -27,7 +27,7 @@ export default function Navbar({
         <Link href="/faq" className="hover:text-black dark:hover:text-white">FAQ</Link>
         <button
           onClick={toggleTheme}
-          className="ml-4 px-3 py-2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-black dark:text-white transition"
+          className="ml-4 px-3 py-2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-black dark:text-white transition hover:cursor-pointer"
         >
           {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
         </button>
