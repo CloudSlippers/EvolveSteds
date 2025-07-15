@@ -1,29 +1,45 @@
-import Link from 'next/link';
-import Image from 'next/image';
+// app/products/[id]/page.tsx
+import { notFound } from 'next/navigation';
 import products from '@/data/products.json';
+import Image from 'next/image';
 
-export default function ProductsPage() {
+export const dynamicParams = true; // allow dynamic params during build
+
+type Props = {
+  params: { id: string };
+};
+
+export default function ProductPage({ params }: Props) {
+  const product = products.find((p) => String(p.id) === params.id);
+
+  if (!product) return notFound();
+
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8">Our Products</h1>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((p) => (
-          <Link href={`/products/${p.id}`} key={p.id}>
-            <div className="border border-zinc-700 bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer">
-              <Image
-                src={p.image}
-                alt={p.title}
-                width={300}
-                height={300}
-                className="w-full h-40 object-cover mb-4 rounded"
-                unoptimized // prevent next/image from trying to optimize remote images
-              />
-              <h3 className="font-semibold text-white text-sm">{p.title}</h3>
-              <p className="text-zinc-400 text-sm">{p.price}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
+    <main className="max-w-3xl mx-auto px-6 py-12 text-center">
+      <Image
+        src={product.image}
+        alt={product.title}
+        width={400}
+        height={400}
+        className="mx-auto mb-6 rounded"
+        unoptimized
+      />
+      <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">{product.price}</p>
+      <a
+        href={`https://wa.me/447123456789?text=I want to order: ${encodeURIComponent(product.title)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded"
+      >
+        Place Order
+      </a>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  return products.map((product) => ({
+    id: String(product.id),
+  }));
 }
