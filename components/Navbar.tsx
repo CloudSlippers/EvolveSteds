@@ -12,47 +12,66 @@ export default function Navbar() {
   }, [darkMode])
 
   return (
-    <nav className="relative border-b border-gray-300 dark:border-zinc-700 mb-6">
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-        {/* Logo */}
-        <div className="text-xl font-bold cursor-pointer">
-          <Link href="/">
-            <span>EvolveSteds</span>
-          </Link>
-        </div>
+    <nav className="mb-6 flex justify-between items-center relative border-b border-gray-300 dark:border-zinc-700">
+      {/* Logo on the left */}
+      <div className="text-xl font-bold cursor-pointer">
+        <Link href="/">
+          <span>EvolveSteds</span>
+        </Link>
+      </div>
 
-        {/* Desktop menu */}
-        <div className="hidden md:flex items-center space-x-6 text-lg">
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/faq">FAQ</Link>
-          <button
-            aria-label="Toggle dark mode"
-            onClick={() => setDarkMode(!darkMode)}
-            className="ml-4 p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition"
-            title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          >
-            {darkMode ? '☀️' : '🌙'}
-          </button>
-        </div>
+      {/* Desktop links + toggle */}
+      <div className="hidden md:flex items-center space-x-6 text-lg">
+        <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="/faq">FAQ</Link>
 
-        {/* Mobile menu button */}
+        {/* Dark/Light toggle */}
         <button
-          className="md:hidden p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-          aria-label="Toggle menu"
-          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle dark mode"
+          onClick={() => setDarkMode(!darkMode)}
+          className="ml-4 p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition"
+          title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
-          {menuOpen ? '✖️' : '☰'}
+          {darkMode ? '☀️' : '🌙'}
         </button>
       </div>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile hamburger */}
+      <button
+        className="md:hidden p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+      >
+        {menuOpen ? '✖️' : '☰'}
+      </button>
+
+      {/* Mobile dropdown menu */}
       {menuOpen && (
         <div className="md:hidden absolute left-0 right-0 top-full bg-white dark:bg-zinc-900 border-t border-gray-300 dark:border-zinc-700 shadow-md z-50">
           <div className="flex flex-col px-6 py-4 space-y-4 text-lg">
-            <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
-            <Link href="/faq" onClick={() => setMenuOpen(false)}>FAQ</Link>
+            <Link
+              href="/"
+              onClick={() => setMenuOpen(false)}
+              className="text-gray-900 dark:text-gray-300"
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setMenuOpen(false)}
+              className="text-gray-900 dark:text-gray-300"
+            >
+              About
+            </Link>
+            <Link
+              href="/faq"
+              onClick={() => setMenuOpen(false)}
+              className="text-gray-900 dark:text-gray-300"
+            >
+              FAQ
+            </Link>
+
             <button
               aria-label="Toggle dark mode"
               onClick={() => {
