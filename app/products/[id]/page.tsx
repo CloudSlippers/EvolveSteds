@@ -30,7 +30,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       />
       <p className="mb-6 text-lg font-semibold">{product.price}</p>
 
-      <WhatsAppButton productTitle={product.title} />
+       <WhatsAppButton productTitle={product.title} productSlug={product.id.toString()} />
     </main>
   );
 }

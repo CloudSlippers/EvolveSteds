@@ -2,17 +2,20 @@
 
 type WhatsAppButtonProps = {
   productTitle: string;
+  productSlug: string; // pass the slug or id for URL
 };
 
-export default function WhatsAppButton({ productTitle }: WhatsAppButtonProps) {
+export default function WhatsAppButton({ productTitle, productSlug }: WhatsAppButtonProps) {
+  const whatsappNumber = "447765333041"; //"447561669494"; // replace with your WhatsApp number (incl country code, no +)
+
+  const message = `Hi, I want to order ${productTitle} from https://evolvesteds.com/products/${productSlug}`;
+
   return (
     <button
       onClick={() => {
         window.open(
-          `https://wa.me/YOURNUMBER?text=Hi,%20I%20want%20to%20order%20${encodeURIComponent(
-            productTitle
-          )}`,
-          '_blank'
+          `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+          "_blank"
         );
       }}
       className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition"
