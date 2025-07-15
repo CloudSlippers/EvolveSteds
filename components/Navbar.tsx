@@ -44,7 +44,7 @@ export default function Navbar() {
 
       {/* Mobile menu dropdown */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white dark:bg-zinc-900 border-t border-gray-200 dark:border-gray-700 flex flex-col items-start px-6 py-4 md:hidden z-50">
+        <div className="absolute top-[64px] left-0 w-full bg-white dark:bg-zinc-900 text-black dark:text-white border-t border-gray-200 dark:border-gray-700 flex flex-col items-start px-6 py-4 md:hidden z-50 shadow-md">
           <Link href="/" className="mb-2" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/about" className="mb-2" onClick={() => setMenuOpen(false)}>About</Link>
           <Link href="/faq" className="mb-2" onClick={() => setMenuOpen(false)}>FAQ</Link>
