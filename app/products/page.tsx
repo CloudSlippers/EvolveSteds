@@ -1,13 +1,19 @@
 // app/products/[id]/page.tsx
 import { notFound } from 'next/navigation';
-import products from '@/data/products.json';
 import Image from 'next/image';
-
-export const dynamicParams = true; // allow dynamic params during build
+import products from '@/data/products.json';
 
 type Props = {
-  params: { id: string };
+  params: {
+    id: string;
+  };
 };
+
+export function generateStaticParams() {
+  return products.map((p) => ({
+    id: String(p.id),
+  }));
+}
 
 export default function ProductPage({ params }: Props) {
   const product = products.find((p) => String(p.id) === params.id);
@@ -15,7 +21,7 @@ export default function ProductPage({ params }: Props) {
   if (!product) return notFound();
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-12 text-center">
+    <main className="max-w-4xl mx-auto px-6 py-16 text-center">
       <Image
         src={product.image}
         alt={product.title}
@@ -24,22 +30,17 @@ export default function ProductPage({ params }: Props) {
         className="mx-auto mb-6 rounded"
         unoptimized
       />
-      <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">{product.price}</p>
+      <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
+      <p className="text-lg text-gray-500 dark:text-gray-300 mb-6">{product.price}</p>
+
       <a
-        href={`https://wa.me/447123456789?text=I want to order: ${encodeURIComponent(product.title)}`}
+        href={`https://wa.me/447000000000?text=I'm%20interested%20in%20${encodeURIComponent(product.title)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded"
+        className="inline-block bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition"
       >
-        Place Order
+        Place Order on WhatsApp
       </a>
     </main>
   );
-}
-
-export async function generateStaticParams() {
-  return products.map((product) => ({
-    id: String(product.id),
-  }));
 }
