@@ -57,7 +57,7 @@ export default function Home() {
       </section>
 
       {/* Product teaser grid */}
-      <section className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+      <section className="mt-20 grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
         {products.map((product) => (
           <Link
             href={`/products/${product.id}`}
