@@ -1,3 +1,13 @@
+import fs from 'fs';
+import path from 'path';
+
+type Product = {
+  id: number;
+  title: string;
+  image: string;
+  price: string;
+};
+
 export default function Home() {
   const features = [
     "✅ 100% Authentic",
@@ -9,6 +19,9 @@ export default function Home() {
     "🎁 Best Packaging",
     "📈 Proven Results",
   ];
+
+  const filePath = path.join(process.cwd(), 'data/products.json');
+  const products: Product[] = JSON.parse(fs.readFileSync(filePath, 'utf8')).slice(0, 4); // first 4
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-16 text-center">
@@ -43,18 +56,24 @@ export default function Home() {
         })}
       </section>
 
-
-      {/* Product teaser grid placeholder */}
+      {/* Product teaser grid */}
       <section className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-        {[1, 2, 3, 4].map((id) => (
-          <div
-            key={id}
-            className="border border-gray-300 rounded-lg p-4 cursor-pointer hover:shadow-lg transition"
+        {products.map((product) => (
+          <a
+            href={`/products/${product.id}`}
+            key={product.id}
+            className="border border-gray-300 dark:border-zinc-700 rounded-lg p-4 hover:shadow-lg transition bg-white dark:bg-zinc-800 text-left"
           >
-            <div className="bg-gray-200 h-32 mb-4 rounded"></div>
-            <h3 className="font-semibold mb-1">Product {id}</h3>
-            <p className="text-sm text-gray-500">£XX.XX</p>
-          </div>
+            <img
+              src={product.image}
+              alt={product.title}
+              className="h-32 w-full object-contain mb-4 rounded"
+            />
+            <h3 className="font-semibold text-sm mb-1 text-gray-900 dark:text-white">
+              {product.title}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{product.price}</p>
+          </a>
         ))}
       </section>
     </main>
