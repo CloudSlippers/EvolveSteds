@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientThemeWrapper from "@/components/ClientThemeWrapper";
+import Footer from "@/components/Footer";  // <-- import footer
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`}>
       <body>
-        <ClientThemeWrapper>{children}</ClientThemeWrapper>
+        <ClientThemeWrapper>
+          {children}
+          <Footer />  {/* Add footer here */}
+        </ClientThemeWrapper>
       </body>
     </html>
   );
