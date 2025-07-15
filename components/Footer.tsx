@@ -6,15 +6,9 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
         <p>© {new Date().getFullYear()} EvolveSteds. All rights reserved.</p>
         <nav className="space-x-4 mt-4 md:mt-0">
-          <Link href="/about">
-            <a className="hover:text-white transition">About</a>
-          </Link>
-          <Link href="/products">
-            <a className="hover:text-white transition">Products</a>
-          </Link>
-          <Link href="/faq">
-            <a className="hover:text-white transition">FAQ</a>
-          </Link>
+          <Link href="/about" className="hover:text-white transition">About</Link>
+          <Link href="/products" className="hover:text-white transition">Products</Link>
+          <Link href="/faq" className="hover:text-white transition">FAQ</Link>
         </nav>
       </div>
     </footer>
