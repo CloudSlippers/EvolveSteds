@@ -1,87 +1,57 @@
-'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 
-export default function Navbar() {
-  const [darkMode, setDarkMode] = useState(false)
+export default function Navbar({
+  theme,
+  setTheme,
+}: {
+  theme: 'dark' | 'light'
+  setTheme: (t: 'dark' | 'light') => void
+}) {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode)
-  }, [darkMode])
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   return (
-    <nav className="mb-6 flex justify-between items-center relative border-b border-gray-300 dark:border-zinc-700">
-      {/* Logo on the left */}
+    <nav className="mb-6 flex justify-between items-center relative border-b border-zinc-700 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-black dark:text-zinc-300">
       <div className="text-xl font-bold cursor-pointer">
-        <Link href="/">
-          <span>EvolveSteds</span>
-        </Link>
+        <Link href="/">EvolveSteds</Link>
       </div>
 
-      {/* Desktop links + toggle */}
       <div className="hidden md:flex items-center space-x-6 text-lg">
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-        <Link href="/faq">FAQ</Link>
-
-        {/* Dark/Light toggle */}
+        <Link href="/" className="hover:text-black dark:hover:text-white">Home</Link>
+        <Link href="/about" className="hover:text-black dark:hover:text-white">About</Link>
+        <Link href="/faq" className="hover:text-black dark:hover:text-white">FAQ</Link>
         <button
-          aria-label="Toggle dark mode"
-          onClick={() => setDarkMode(!darkMode)}
-          className="ml-4 p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition"
-          title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          onClick={toggleTheme}
+          className="ml-4 px-3 py-2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-black dark:text-white transition"
         >
-          {darkMode ? '☀️' : '🌙'}
+          {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
         </button>
       </div>
 
-      {/* Mobile hamburger */}
       <button
-        className="md:hidden p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition"
+        className="md:hidden p-2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-black dark:text-white transition"
         onClick={() => setMenuOpen(!menuOpen)}
-        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
       >
         {menuOpen ? '✖️' : '☰'}
       </button>
 
-      {/* Mobile dropdown menu */}
       {menuOpen && (
-        <div className="md:hidden absolute left-0 right-0 top-full bg-white dark:bg-zinc-900 border-t border-gray-300 dark:border-zinc-700 shadow-md z-50">
+        <div className="md:hidden absolute left-0 right-0 top-full bg-white dark:bg-zinc-900 border-t border-zinc-700 shadow-md z-50">
           <div className="flex flex-col px-6 py-4 space-y-4 text-lg">
-            <Link
-              href="/"
-              onClick={() => setMenuOpen(false)}
-              className="text-gray-900 dark:text-gray-300"
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setMenuOpen(false)}
-              className="text-gray-900 dark:text-gray-300"
-            >
-              About
-            </Link>
-            <Link
-              href="/faq"
-              onClick={() => setMenuOpen(false)}
-              className="text-gray-900 dark:text-gray-300"
-            >
-              FAQ
-            </Link>
-
+            <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link href="/faq" onClick={() => setMenuOpen(false)}>FAQ</Link>
             <button
-              aria-label="Toggle dark mode"
               onClick={() => {
-                setDarkMode(!darkMode)
+                toggleTheme()
                 setMenuOpen(false)
               }}
-              className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition w-fit"
-              title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="p-2 rounded bg-zinc-200 dark:bg-zinc-700 text-black dark:text-white w-fit"
             >
-              {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+              {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
             </button>
           </div>
         </div>
