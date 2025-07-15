@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Navbar from './Navbar'
+import React from "react";
 
-export default function ClientThemeWrapper({ children }) {
+export default function ClientThemeWrapper({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<'dark'|'light'>('dark')
 
   useEffect(() => {
