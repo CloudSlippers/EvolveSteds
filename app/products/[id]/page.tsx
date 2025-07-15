@@ -1,5 +1,7 @@
+// app/products/[id]/page.tsx
 import products from '@/data/products.json';
 import Image from 'next/image';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 export function generateStaticParams() {
   return products.map((p) => ({
@@ -27,7 +29,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         unoptimized
       />
       <p className="mb-6 text-lg font-semibold">{product.price}</p>
-      {/* Your order button here */}
+
+      <WhatsAppButton productTitle={product.title} />
     </main>
   );
 }
