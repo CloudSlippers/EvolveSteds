@@ -24,19 +24,23 @@ export default function Home() {
       </a>
 
       {/* Features grid */}
-      <section className="mt-16 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-left">
-        {features.map((feature, idx) => (
-          <div
-            key={idx}
-            className="flex items-center space-x-3 p-4 border rounded-lg bg-gray-50 dark:bg-zinc-800 border-gray-200 dark:border-zinc-700 shadow-sm"
-          >
-            <span className="text-2xl">{feature.split(' ')[0]}</span>
-            <span className="text-gray-700 dark:text-gray-300 font-semibold">
-              {feature.split(' ').slice(1).join(' ')}
-            </span>
-          </div>
-        ))}
+      <section className="mt-16 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {features.map((feature, idx) => {
+          const [icon, ...rest] = feature.split(' ');
+          return (
+            <div
+              key={idx}
+              className="flex flex-col items-center justify-center text-center p-4 min-h-[100px] rounded-lg border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800"
+            >
+              <span className="text-2xl mb-2">{icon}</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 break-words">
+                {rest.join(' ')}
+              </span>
+            </div>
+          );
+        })}
       </section>
+
 
       {/* Product teaser grid placeholder */}
       <section className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
