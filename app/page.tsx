@@ -32,7 +32,7 @@ export default function Home() {
         Research-backed performance enhancers designed for elite transformation.
       </p>
       <a
-        href="/products"
+        Link="/products"
         className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-3 rounded-full font-semibold hover:opacity-80 transition"
       >
         Browse Products
@@ -59,7 +59,7 @@ export default function Home() {
       {/* Product teaser grid */}
       <section className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
         {products.map((product) => (
-          <a
+          <Link
             href={`/products/${product.id}`}
             key={product.id}
             className="border border-gray-300 dark:border-zinc-700 rounded-lg p-4 hover:shadow-lg transition bg-white dark:bg-zinc-800 text-left"
