@@ -18,7 +18,7 @@ export default function WhatsAppButton({ productTitle, productSlug }: WhatsAppBu
           "_blank"
         );
       }}
-      className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition"
+      className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition hover:cursor-pointer"
     >
       Place Order on WhatsApp
     </button>
