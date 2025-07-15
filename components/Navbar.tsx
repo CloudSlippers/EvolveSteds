@@ -24,7 +24,6 @@ export default function Navbar() {
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
         <Link href="/faq">FAQ</Link>
-        <Link href="/products">Products</Link>
 
         {/* Dark/Light toggle */}
         <button
