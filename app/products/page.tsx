@@ -9,7 +9,7 @@ export default function ProductsPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((p) => (
           <Link href={`/products/${p.id}`} key={p.id} className="block">
-            <div className="border border-zinc-700 bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer">
+            <div className="border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer">
               <Image
                 src={p.image}
                 alt={p.title}
@@ -18,8 +18,8 @@ export default function ProductsPage() {
                 className="w-full h-40 object-cover mb-4 rounded"
                 unoptimized
               />
-              <h3 className="font-semibold text-white text-sm">{p.title}</h3>
-              <p className="text-zinc-400 text-sm">{p.price}</p>
+              <h3 className="font-semibold text-black dark:text-white text-sm">{p.title}</h3>
+              <p className="text-zinc-555 text-sm">{p.price}</p>
             </div>
           </Link>
         ))}
