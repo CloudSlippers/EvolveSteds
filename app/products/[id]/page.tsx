@@ -1,14 +1,5 @@
-// app/products/[id]/page.tsx
 import products from '@/data/products.json';
 import Image from 'next/image';
-import WhatsAppButton from '@/components/WhatsAppButton';
-
-type PageProps = {
-  params: {
-    id: string;
-  };
-  // optional searchParams if used
-};
 
 export function generateStaticParams() {
   return products.map((p) => ({
@@ -16,8 +7,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ProductPage({ params }: PageProps) {
-  const product = products.find((p) => p.id.toString() === params.id);
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const product = products.find((p) => p.id.toString() === id);
 
   if (!product) {
     return <div>Product not found.</div>;
@@ -35,7 +27,7 @@ export default function ProductPage({ params }: PageProps) {
         unoptimized
       />
       <p className="mb-6 text-lg font-semibold">{product.price}</p>
-      <WhatsAppButton productTitle={product.title} />
+      {/* Your order button here */}
     </main>
   );
 }
