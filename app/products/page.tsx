@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import products from '@/data/products.json';
 
 export default function ProductsPage() {
@@ -9,7 +10,14 @@ export default function ProductsPage() {
         {products.map((p) => (
           <Link href={`/products/${p.id}`} key={p.id}>
             <div className="border border-zinc-700 bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer">
-              <img src={p.image} alt={p.title} className="w-full h-40 object-cover mb-4 rounded" />
+              <Image
+                src={p.image}
+                alt={p.title}
+                width={300}
+                height={300}
+                className="w-full h-40 object-cover mb-4 rounded"
+                unoptimized // prevent next/image from trying to optimize remote images
+              />
               <h3 className="font-semibold text-white text-sm">{p.title}</h3>
               <p className="text-zinc-400 text-sm">{p.price}</p>
             </div>
