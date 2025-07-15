@@ -12,7 +12,9 @@ export default function Home() {
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-16 text-center">
-      <h1 className="text-5xl font-extrabold mb-6">EvolveSteds</h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6">
+        EvolveSteds
+      </h1>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed text-lg">
         Research-backed performance enhancers designed for elite transformation.
       </p>
