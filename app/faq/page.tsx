@@ -77,7 +77,7 @@ export default function FAQ() {
               </svg>
             </button>
             {openIndex === i && (
-              <div className="px-6 py-4 text-gray-300 dark:bg-zinc-900">
+              <div className="px-6 py-4 text-gray-800 dark:bg-zinc-900 dark:text-gray-400">
                 {answer}
               </div>
             )}
