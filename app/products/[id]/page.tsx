@@ -22,7 +22,7 @@ export function generateStaticParams(): { id: string }[] {
 }
 
 interface ProductPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {

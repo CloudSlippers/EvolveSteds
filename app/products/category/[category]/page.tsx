@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 export default async function CategoryPage({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
   const category = params.category; // ✅ safely use before JSX
   const filtered = products.filter(p => p.category === category);
