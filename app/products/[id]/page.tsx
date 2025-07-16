@@ -35,7 +35,7 @@ type Props = {
   params: { id: string };
 };
 
-export default function ProductPage({ params }: Props) {
+export default async function ProductPage({ params }: Props) {
   const { id } = params;
   const product = products.find((p) => p.id.toString() === id);
 

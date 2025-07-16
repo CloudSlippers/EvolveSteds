@@ -3,22 +3,40 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { inferCategory } from '@/scripts/inferCategory';
 
-type Props = {
-  params: Promise<{ category: string }>;
+type RawProduct = {
+  id: number;
+  title: string;
+  image: string;
+  price: string;
+  originalPrice: string | null;
+  link: string;
+  isOnSale: boolean;
+  category?: string;
 };
 
-const products = productsData.map(p => ({
+type Product = RawProduct & {
+  category: string;
+};
+
+const rawProducts = productsData as RawProduct[];
+
+const products: Product[] = rawProducts.map(p => ({
   ...p,
   category: p.category ?? inferCategory(p.title),
 }));
 
 export function generateStaticParams() {
   const categories = [...new Set(products.map(p => p.category))];
-  return categories.map(cat => ({ category: cat }));
+  return categories.map(category => ({ category }));
 }
 
+type Props = {
+  params: { category: string };
+};
+
 export default async function CategoryPage({ params }: Props) {
-  const { category } = await params;
+  const { category } = params;
+  // You can await here if you fetch async data, but with JSON it's sync
   const filteredProducts = products.filter(p => p.category === category);
 
   if (!filteredProducts.length) {
