@@ -1,7 +1,13 @@
-// app/products/[id]/page.tsx
-import products from '@/data/products.json';
+import productsData from '@/data/products.json';
 import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import { inferCategory } from '@/scripts/inferCategory';
+
+// Map once with inferred category
+const products = productsData.map(p => ({
+  ...p,
+  category: p.category ?? inferCategory(p.title)
+}));
 
 export function generateStaticParams() {
   return products.map((p) => ({
@@ -9,8 +15,12 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+type Props = {
+  params: { id: string };
+};
+
+export default function ProductPage({ params }: Props) {
+  const { id } = params;
   const product = products.find((p) => p.id.toString() === id);
 
   if (!product) {
@@ -19,7 +29,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   return (
     <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">{product.title}</h1>
+      <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
+      <p className="mb-6 text-sm text-gray-500 capitalize">Category: {product.category.replace(/-/g, ' ')}</p>
       <Image
         src={product.image}
         alt={product.title}
@@ -30,7 +41,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       />
       <p className="mb-6 text-lg font-semibold">{product.price}</p>
 
-       <WhatsAppButton productTitle={product.title} productSlug={product.id.toString()} />
+      <WhatsAppButton productTitle={product.title} productSlug={product.id.toString()} />
     </main>
   );
 }
