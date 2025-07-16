@@ -15,17 +15,17 @@ type Product = {
 
 const products = productsData as Product[];
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const categories = [...new Set(products.map(p => p.category))];
   return categories.map(category => ({ category }));
 }
 
-type Props = {
+export default async function CategoryPage({
+  params,
+}: {
   params: { category: string };
-};
-
-export default function CategoryPage({ params }: Props) {
-  const { category } = params;
+}) {
+  const category = params.category; // ✅ safely use before JSX
   const filtered = products.filter(p => p.category === category);
 
   if (!filtered.length) {

@@ -47,7 +47,10 @@ export default function ProductPage({ params }: ProductPageProps) {
         unoptimized
       />
       <p className="mb-6 text-lg font-semibold">{product.price}</p>
-      <WhatsAppButton productTitle={product.title} productSlug={product.id.toString()} />
+      <WhatsAppButton
+        productTitle={product.title}
+        productSlug={product.id.toString()}
+      />
     </main>
   );
 }
