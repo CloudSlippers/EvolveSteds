@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import React from "react";
 
 export default function ClientThemeWrapper({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<'dark'|'light'>('dark')
+  const [theme, setTheme] = useState<'dark'|'light'>('light')
 
   useEffect(() => {
     const root = document.documentElement

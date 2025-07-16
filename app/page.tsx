@@ -25,18 +25,29 @@ export default function Home() {
   const products: Product[] = JSON.parse(fs.readFileSync(filePath, 'utf8')).slice(0, 4);
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-16 text-center">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6">EvolveSteds</h1>
-      <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed text-lg">
-        Research-backed performance enhancers designed for elite transformation.
-      </p>
+    <main>
+      {/* Hero section with background image */}
+      <section className="relative text-center text-white py-20 px-6 bg-cover bg-center" style={{ backgroundImage: "url('/weights.jpg')" }}>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black opacity-50"></div>
 
-      <Link
-        href="/products"
-        className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-3 rounded-full font-semibold hover:opacity-80 transition"
-      >
-        Browse Products
-      </Link>
+        {/* Content */}
+        <div className="relative z-10">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">
+            EvolveSteds
+          </h1>
+          <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto drop-shadow-lg">
+            Research-backed performance enhancers designed for elite transformation.
+          </p>
+          <Link
+            href="/products"
+            className="inline-block bg-white text-black px-8 py-3 rounded-full font-semibold hover:opacity-90 transition shadow-lg"
+          >
+            Browse Products
+          </Link>
+        </div>
+      </section>
+
 
       {/* Features grid */}
       <section className="mt-16 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
