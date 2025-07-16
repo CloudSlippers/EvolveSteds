@@ -15,9 +15,9 @@ export default function Navbar({
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   return (
-    <nav className="mb-6 flex justify-between items-center relative border-b border-zinc-700 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-black dark:text-zinc-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4 flex justify-between items-center border-b border-zinc-700 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-black dark:text-zinc-300">
       <Link href="/" className="flex items-center">
-        <img src="/logo.svg" alt="EvolveSteds Logo" className="h-10 w-auto" />
+        <img src="/logo.svg" alt="EvolveSteds Logo" className="h-12 w-auto" />
       </Link>
 
       <div className="hidden md:flex items-center space-x-6 text-lg">

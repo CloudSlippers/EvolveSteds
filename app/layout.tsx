@@ -24,8 +24,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`}>
       <body>
         <ClientThemeWrapper>
-          {children}
-          <Footer />  {/* Add footer here */}
+          <main className="pt-[80px] bg-white text-black dark:bg-zinc-900 dark:text-white">
+            {children}
+          </main>
+          <Footer />
         </ClientThemeWrapper>
       </body>
     </html>
