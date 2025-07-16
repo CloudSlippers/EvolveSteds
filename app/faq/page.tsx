@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+
 const faqData = [
   {
     question: 'How do I place an order?',
@@ -42,8 +43,7 @@ const faqData = [
     answer:
       'We use high-quality pharmaceutical-grade oils sourced from trusted suppliers to ensure safety and effectiveness.',
   },
-];
-
+]
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -54,18 +54,27 @@ export default function FAQ() {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
+      <h1 className="text-4xl font-bold mb-8 text-[#4A96BE]">Frequently Asked Questions</h1>
       <div className="space-y-4">
         {faqData.map(({ question, answer }, i) => (
-          <div key={i} className="rounded-lg overflow-hidden border border-gray-700">
+          <div
+            key={i}
+            className="rounded-lg overflow-hidden border border-gray-700 dark:border-zinc-700 bg-white dark:bg-zinc-900"
+          >
             <button
               onClick={() => toggle(i)}
-              className="w-full flex justify-between items-center px-6 py-4 text-left border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:cursor-pointer"
+              className="w-full flex justify-between items-center px-6 py-4 text-left border-b border-gray-700 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#4A96BE] hover:cursor-pointer"
             >
-              <span className="font-semibold text-lg">{question}</span>
+              <span
+                className={`font-semibold text-lg transition-colors ${
+                  openIndex === i ? 'text-[#4A96BE]' : 'text-gray-900 dark:text-gray-300'
+                }`}
+              >
+                {question}
+              </span>
               <svg
-                className={`w-6 h-6 transform transition-transform duration-300 ${
-                  openIndex === i ? 'rotate-180' : 'rotate-0'
+                className={`w-6 h-6 transition-transform duration-300 ${
+                  openIndex === i ? 'rotate-180 text-[#4A96BE]' : 'rotate-0 text-gray-900 dark:text-gray-300'
                 }`}
                 fill="none"
                 stroke="currentColor"
@@ -77,9 +86,7 @@ export default function FAQ() {
               </svg>
             </button>
             {openIndex === i && (
-              <div className="px-6 py-4 text-gray-800 dark:bg-zinc-900 dark:text-gray-400">
-                {answer}
-              </div>
+              <div className="px-6 py-4 text-gray-800 dark:text-gray-400">{answer}</div>
             )}
           </div>
         ))}

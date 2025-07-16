@@ -1,19 +1,20 @@
 export default function About() {
   return (
     <div className="max-w-3xl mx-auto p-6">
-     <h1 className="text-4xl font-bold mb-6 text-black dark:text-white">
-      About EvolveSteds
-    </h1>
+      <h1 className="text-4xl font-bold mb-6" style={{ color: '#4A96BE' }}>
+        About EvolveSteds
+      </h1>
       <p className="leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
-        With over 10 years of experience in the supplement industry, EvolveSteds is dedicated to delivering
-        research-backed, high-quality performance enhancers designed to help you reach your fitness goals.
+        EvolveSteds is a trusted and approved supplier of certified authentic products from EvolveBiolabs, renowned for their commitment to quality and efficacy.
       </p>
       <p className="leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
-        We focus on manufacturing potent and pure formulations, using only top-tier Active Pharmaceutical Ingredients (APIs).
-        Our strict quality control processes ensure every product meets the highest industry standards.
+        Our partnership ensures that every product we offer meets stringent quality controls and industry standards, guaranteeing you genuine formulations designed to support your fitness and transformation goals.
+      </p>
+      <p className="leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
+        We pride ourselves on exceptional customer service and global distribution, delivering authentic, research-backed supplements directly to you with full confidence.
       </p>
       <p className="leading-relaxed text-gray-700 dark:text-gray-300">
-        Committed to excellence and customer satisfaction, we distribute our products globally, supporting your transformation journey wherever you are.
+        Your transformation journey is our priority — trust EvolveSteds for verified quality and authenticity.
       </p>
     </div>
   )
