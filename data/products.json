@@ -415,10 +415,19 @@
   },
   {
     "id": 49,
-    "title": "Androl  – Oxymetholone U.S.P 50mg – 100 Tabs",
+    "title": "Androl – Oxymetholone U.S.P 50mg – 100 Tabs",
     "image": "/products/product-49.webp",
     "price": "£40.00",
     "originalPrice": "£45.00",
+    "link": "https://evolvebiolabs.co.uk/product/androl-oxymetholone-u-s-p-50mg-100-tabs/",
+    "isOnSale": true
+  },
+  {
+    "id": 50,
+    "title": "Sustamaxxx – Testosterone - 10 Ampoules of 1ml",
+    "image": "/products/product-50.png",
+    "price": "£25.00",
+    "originalPrice": "£35.00",
     "link": "https://evolvebiolabs.co.uk/product/androl-oxymetholone-u-s-p-50mg-100-tabs/",
     "isOnSale": true
   }
