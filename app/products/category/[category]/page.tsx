@@ -52,7 +52,16 @@ export default async function CategoryPage({
               <h3 className="font-semibold text-black dark:text-white text-sm min-h-[2.5rem]">
                 {p.title}
               </h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-2">{p.price}</p>
+             <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-2 font-medium">
+                {p.isOnSale && p.originalPrice ? (
+                  <>
+                    <span className="line-through mr-2 text-red-500">{p.originalPrice}</span>
+                    <span className="text-[#4A96BE]">{p.price}</span>
+                  </>
+                ) : (
+                  p.price
+                )}
+              </p>
             </div>
           </Link>
         ))}

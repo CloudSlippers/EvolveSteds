@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+
 const faqData = [
   {
     question: 'How do I place an order?',
@@ -42,8 +43,7 @@ const faqData = [
     answer:
       'We use high-quality pharmaceutical-grade oils sourced from trusted suppliers to ensure safety and effectiveness.',
   },
-];
-
+]
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -54,15 +54,20 @@ export default function FAQ() {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
+      <h1 className="text-4xl font-bold mb-8 text-[#4A96BE] dark:text-[#4A96BE]">
+        Frequently Asked Questions
+      </h1>
       <div className="space-y-4">
         {faqData.map(({ question, answer }, i) => (
-          <div key={i} className="rounded-lg overflow-hidden border border-gray-700">
+          <div
+            key={i}
+            className="rounded-lg overflow-hidden border border-gray-300 dark:border-zinc-700 transition-colors duration-300"
+          >
             <button
               onClick={() => toggle(i)}
-              className="w-full flex justify-between items-center px-6 py-4 text-left border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:cursor-pointer"
+              className="w-full flex justify-between items-center px-6 py-4 text-left focus:outline-none focus:ring-2 focus:ring-[#4A96BE] hover:cursor-pointer"
             >
-              <span className="font-semibold text-lg">{question}</span>
+              <span className="font-semibold text-lg text-black dark:text-white">{question}</span>
               <svg
                 className={`w-6 h-6 transform transition-transform duration-300 ${
                   openIndex === i ? 'rotate-180' : 'rotate-0'
@@ -76,11 +81,14 @@ export default function FAQ() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {openIndex === i && (
-              <div className="px-6 py-4 text-gray-800 dark:bg-zinc-900 dark:text-gray-400">
-                {answer}
-              </div>
-            )}
+            <div
+              className={`px-6 overflow-hidden transition-max-height duration-500 ease-in-out ${
+                openIndex === i ? 'max-h-96 py-4 text-gray-800 dark:text-gray-400 dark:bg-zinc-900' : 'max-h-0 py-0 text-transparent'
+              }`}
+              aria-hidden={openIndex !== i}
+            >
+              {answer}
+            </div>
           </div>
         ))}
       </div>
