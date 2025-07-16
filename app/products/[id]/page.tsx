@@ -2,7 +2,7 @@ import productsData from '@/data/products.json';
 import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
-type RawProduct = {
+type Product = {
   id: number;
   title: string;
   image: string;
@@ -10,35 +10,26 @@ type RawProduct = {
   originalPrice: string | null;
   link: string;
   isOnSale: boolean;
-  category?: string;
-};
-
-type Product = RawProduct & {
   category: string;
 };
 
-const products = productsData as RawProduct[];
+const products = productsData as Product[];
 
-export function generateStaticParams() {
+export function generateStaticParams(): { id: string }[] {
   return products.map((p) => ({
     id: p.id.toString(),
   }));
 }
 
-type Props = {
+interface ProductPageProps {
   params: { id: string };
-};
+}
 
-export default async function ProductPage({ params }: Props) {
-  const { id } = params;
-
-  // fake async fetch
-  const product = await new Promise<Product | undefined>((resolve) => {
-    resolve(products.find((p) => p.id.toString() === id));
-  });
+export default function ProductPage({ params }: ProductPageProps) {
+  const product = products.find((p) => p.id.toString() === params.id);
 
   if (!product) {
-    return <div>Product not found.</div>;
+    return <div className="p-6">Product not found.</div>;
   }
 
   return (
@@ -56,7 +47,6 @@ export default async function ProductPage({ params }: Props) {
         unoptimized
       />
       <p className="mb-6 text-lg font-semibold">{product.price}</p>
-
       <WhatsAppButton productTitle={product.title} productSlug={product.id.toString()} />
     </main>
   );
