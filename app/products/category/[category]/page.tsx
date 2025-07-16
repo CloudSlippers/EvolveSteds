@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { inferCategory } from '@/scripts/inferCategory';
 
 type Props = {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 };
 
 const products = productsData.map(p => ({
@@ -17,8 +17,8 @@ export function generateStaticParams() {
   return categories.map(cat => ({ category: cat }));
 }
 
-export default function CategoryPage({ params }: Props) {
-  const { category } = params;
+export default async function CategoryPage({ params }: Props) {
+  const { category } = await params;
   const filteredProducts = products.filter(p => p.category === category);
 
   if (!filteredProducts.length) {
