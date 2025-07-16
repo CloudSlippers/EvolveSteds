@@ -6,9 +6,18 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
 const BASE_URL = 'https://evolvebiolabs.co.uk';
 
+// Inline inferCategory function
+function inferCategory(title) {
+  const lower = title.toLowerCase();
+  if (lower.includes('ampoule') || lower.includes('ampoules')) return 'injectables-ampoules';
+  if (lower.includes('tab') || lower.includes('tablet')) return 'oral-tablets';
+  if ((lower.includes('ml') || lower.includes('injection')) && lower.includes('i.m')) return 'vials';
+  return 'others';
+}
+
 async function downloadImage(url, filename) {
   const res = await fetch(url);
-  const arrayBuffer = await res.arrayBuffer(); // Avoid deprecated .buffer()
+  const arrayBuffer = await res.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
   const folderPath = path.join(__dirname, '../public/products');
@@ -17,7 +26,7 @@ async function downloadImage(url, filename) {
   const filePath = path.join(folderPath, filename);
   await fs.writeFile(filePath, buffer);
 
-  return `/products/${filename}`; // Return relative URL
+  return `/products/${filename}`; // relative URL for frontend
 }
 
 async function scrapeProducts() {
@@ -33,13 +42,13 @@ async function scrapeProducts() {
     const title = $(el).find('h2.woocommerce-loop-product__title').text().trim();
     const rawImage = $(el).find('img').attr('srcset')?.split(',').pop()?.trim().split(' ')[0];
 
-    if (!rawImage) continue; // Skip if no image
+    if (!rawImage) continue; // skip if no image
 
     const isOnSale = $(el).find('.onsale').length > 0;
     const originalPrice = $(el).find('del .amount').text().trim() || null;
     const salePrice = $(el).find('ins .amount').text().trim() || $(el).find('.price .amount').text().trim();
 
-    // Get file extension safely
+    // Get safe file extension
     let fileExt;
     try {
       fileExt = path.extname(new URL(rawImage).pathname) || '.webp';
@@ -50,6 +59,9 @@ async function scrapeProducts() {
     const imageFilename = `product-${i}${fileExt}`;
     const localImagePath = await downloadImage(rawImage, imageFilename);
 
+    // Infer category from title inline here
+    const category = inferCategory(title);
+
     products.push({
       id: i,
       title,
@@ -58,12 +70,14 @@ async function scrapeProducts() {
       originalPrice,
       link,
       isOnSale,
+      category,   // add inferred category here
     });
   }
 
   await fs.mkdir('data', { recursive: true });
   await fs.writeFile('data/products.json', JSON.stringify(products, null, 2));
-  console.log(`✅ Scraped & saved ${products.length} products.`);
+
+  console.log(`✅ Scraped & saved ${products.length} products with categories.`);
 }
 
 scrapeProducts().catch(console.error);

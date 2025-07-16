@@ -1,9 +1,8 @@
 import productsData from '@/data/products.json';
 import Link from 'next/link';
 import Image from 'next/image';
-import { inferCategory } from '@/scripts/inferCategory';
 
-type RawProduct = {
+type Product = {
   id: number;
   title: string;
   image: string;
@@ -11,19 +10,10 @@ type RawProduct = {
   originalPrice: string | null;
   link: string;
   isOnSale: boolean;
-  category?: string;
+  category: string; // assume always present now
 };
 
-type Product = RawProduct & {
-  category: string;
-};
-
-const rawProducts = productsData as RawProduct[];
-
-const products: Product[] = rawProducts.map(p => ({
-  ...p,
-  category: p.category ?? inferCategory(p.title),
-}));
+const products: Product[] = productsData as Product[];
 
 export function generateStaticParams() {
   const categories = [...new Set(products.map(p => p.category))];
@@ -34,15 +24,12 @@ type Props = {
   params: { category: string };
 };
 
-export default async function CategoryPage({ params }: Props) {
+export default function CategoryPage({ params }: Props) {
   const { category } = params;
 
-  // Await a resolved promise to keep async signature
-  const filteredProducts = await Promise.resolve(
-    products.filter(p => p.category === category)
-  );
+  const filteredProducts = products.filter(p => p.category === category);
 
-  if (!filteredProducts.length) {
+  if (filteredProducts.length === 0) {
     return <div className="p-6">No products found for category: {category}</div>;
   }
 
@@ -53,7 +40,7 @@ export default async function CategoryPage({ params }: Props) {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 items-stretch">
-        {filteredProducts.map((p) => (
+        {filteredProducts.map(p => (
           <Link href={`/products/${p.id}`} key={p.id} className="block h-full">
             <div className="border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer h-full flex flex-col justify-between">
               <Image

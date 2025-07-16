@@ -1,9 +1,8 @@
 import productsData from '@/data/products.json';
 import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { inferCategory } from '@/scripts/inferCategory';
 
-type RawProduct = {
+type Product = {
   id: number;
   title: string;
   image: string;
@@ -11,22 +10,13 @@ type RawProduct = {
   originalPrice: string | null;
   link: string;
   isOnSale: boolean;
-  category?: string;
+  category: string; // assume always present now
 };
 
-type Product = RawProduct & {
-  category: string;
-};
-
-const rawProducts = productsData as RawProduct[];
-
-const products: Product[] = rawProducts.map(p => ({
-  ...p,
-  category: p.category ?? inferCategory(p.title),
-}));
+const products: Product[] = productsData as Product[];
 
 export function generateStaticParams() {
-  return products.map((p) => ({
+  return products.map(p => ({
     id: p.id.toString(),
   }));
 }
@@ -38,10 +28,8 @@ type Props = {
 export default async function ProductPage({ params }: Props) {
   const { id } = params;
 
-  // fake async fetch
-  const product = await new Promise<Product | undefined>((resolve) => {
-    resolve(products.find((p) => p.id.toString() === id));
-  });
+  // Simulate async fetch if needed; otherwise just sync find works too
+  const product = products.find(p => p.id.toString() === id);
 
   if (!product) {
     return <div>Product not found.</div>;
