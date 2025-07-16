@@ -16,9 +16,9 @@ export default function Navbar({
 
   return (
     <nav className="mb-6 flex justify-between items-center relative border-b border-zinc-700 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-black dark:text-zinc-300">
-      <div className="text-xl font-bold cursor-pointer">
-        <Link href="/">EvolveSteds</Link>
-      </div>
+      <Link href="/" className="flex items-center">
+        <img src="/logo.svg" alt="EvolveSteds Logo" className="h-10 w-auto" />
+      </Link>
 
       <div className="hidden md:flex items-center space-x-6 text-lg">
         <Link href="/" className="hover:text-black dark:hover:text-white">Home</Link>
