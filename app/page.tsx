@@ -36,19 +36,19 @@ export default function Home() {
       id: 'oral',
       title: 'Oral / Tablets',
       icon: <FaPills className="mx-auto mb-4 text-6xl text-[#4A96BE]" />,
-      href: '/products/oral-tablets',
+      href: '/products/category/oral-tablets',
     },
     {
       id: 'injectables',
       title: 'Injectables / Ampoules',
       icon: <FaSyringe className="mx-auto mb-4 text-6xl text-[#4A96BE]" />,
-      href: '/products/injectables-ampoules',
+      href: '/products/category/injectables-ampoules',
     },
     {
       id: 'vials',
       title: 'Vials',
       icon: <FaVial className="mx-auto mb-4 text-6xl text-[#4A96BE]" />,
-      href: '/products/vials',
+      href: '/products/category/vials',
     },
   ];
 
