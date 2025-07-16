@@ -3,7 +3,7 @@ import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { inferCategory } from '@/scripts/inferCategory';
 
-type Product = {
+type RawProduct = {
   id: number;
   title: string;
   image: string;
@@ -11,13 +11,18 @@ type Product = {
   originalPrice: string | null;
   link: string;
   isOnSale: boolean;
+  category?: string;
+};
+
+type Product = RawProduct & {
   category: string;
 };
 
-// map with category added and typed
-const products: Product[] = productsData.map(p => ({
+const rawProducts = productsData as RawProduct[];
+
+const products: Product[] = rawProducts.map(p => ({
   ...p,
-  category: p.category ?? inferCategory(p.title)
+  category: p.category ?? inferCategory(p.title),
 }));
 
 export function generateStaticParams() {
@@ -27,11 +32,11 @@ export function generateStaticParams() {
 }
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
-export default async function ProductPage({ params }: Props) {
-  const { id } = await params;
+export default function ProductPage({ params }: Props) {
+  const { id } = params;
   const product = products.find((p) => p.id.toString() === id);
 
   if (!product) {
@@ -41,7 +46,9 @@ export default async function ProductPage({ params }: Props) {
   return (
     <main className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-      <p className="mb-6 text-sm text-gray-500 capitalize">Category: {product.category.replace(/-/g, ' ')}</p>
+      <p className="mb-6 text-sm text-gray-500 capitalize">
+        Category: {product.category.replace(/-/g, ' ')}
+      </p>
       <Image
         src={product.image}
         alt={product.title}
