@@ -36,8 +36,11 @@ type Props = {
 
 export default async function CategoryPage({ params }: Props) {
   const { category } = params;
-  // You can await here if you fetch async data, but with JSON it's sync
-  const filteredProducts = products.filter(p => p.category === category);
+
+  // Await a resolved promise to keep async signature
+  const filteredProducts = await Promise.resolve(
+    products.filter(p => p.category === category)
+  );
 
   if (!filteredProducts.length) {
     return <div className="p-6">No products found for category: {category}</div>;

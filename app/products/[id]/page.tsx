@@ -37,7 +37,11 @@ type Props = {
 
 export default async function ProductPage({ params }: Props) {
   const { id } = params;
-  const product = products.find((p) => p.id.toString() === id);
+
+  // fake async fetch
+  const product = await new Promise<Product | undefined>((resolve) => {
+    resolve(products.find((p) => p.id.toString() === id));
+  });
 
   if (!product) {
     return <div>Product not found.</div>;
