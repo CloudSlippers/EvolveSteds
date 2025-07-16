@@ -10,10 +10,10 @@ type Product = {
   originalPrice: string | null;
   link: string;
   isOnSale: boolean;
-  category: string; // assume always present now
+  category: string;
 };
 
-const products: Product[] = productsData as Product[];
+const products = productsData as Product[];
 
 export function generateStaticParams() {
   const categories = [...new Set(products.map(p => p.category))];
@@ -26,10 +26,9 @@ type Props = {
 
 export default function CategoryPage({ params }: Props) {
   const { category } = params;
+  const filtered = products.filter(p => p.category === category);
 
-  const filteredProducts = products.filter(p => p.category === category);
-
-  if (filteredProducts.length === 0) {
+  if (!filtered.length) {
     return <div className="p-6">No products found for category: {category}</div>;
   }
 
@@ -38,11 +37,10 @@ export default function CategoryPage({ params }: Props) {
       <h1 className="text-3xl font-bold mb-6 capitalize text-[#4A96BE]">
         {category.replace(/-/g, ' ')}
       </h1>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 items-stretch">
-        {filteredProducts.map(p => (
+        {filtered.map(p => (
           <Link href={`/products/${p.id}`} key={p.id} className="block h-full">
-            <div className="border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 p-4 rounded hover:shadow-lg transition cursor-pointer h-full flex flex-col justify-between">
+            <div className="border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 p-4 rounded hover:shadow-lg transition h-full flex flex-col justify-between">
               <Image
                 src={p.image}
                 alt={p.title}
