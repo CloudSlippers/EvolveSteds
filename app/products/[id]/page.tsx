@@ -15,18 +15,14 @@ type Product = {
 
 const products = productsData as Product[];
 
-export function generateStaticParams(): { id: string }[] {
-  return products.map((p) => ({
-    id: p.id.toString(),
-  }));
-}
-
 interface ProductPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>; // params as a Promise
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find((p) => p.id.toString() === params.id);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params; // await here
+
+  const product = products.find((p) => p.id.toString() === id);
 
   if (!product) {
     return <div className="p-6">Product not found.</div>;
@@ -53,4 +49,10 @@ export default function ProductPage({ params }: ProductPageProps) {
       />
     </main>
   );
+}
+
+export function generateStaticParams() {
+  return products.map((p) => ({
+    id: p.id.toString(),
+  }));
 }

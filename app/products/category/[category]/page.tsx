@@ -25,7 +25,7 @@ export default async function CategoryPage({
 }: {
   params: Promise<{ category: string }>;
 }) {
-  const category = params.category; // ✅ safely use before JSX
+  const { category } = await params;
   const filtered = products.filter(p => p.category === category);
 
   if (!filtered.length) {
