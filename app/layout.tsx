@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientThemeWrapper from "@/components/ClientThemeWrapper";
 import Footer from "@/components/Footer";  // <-- import footer
+import Head from 'next/head';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +23,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <body>
         <ClientThemeWrapper>
           <main className="pt-[80px] bg-white text-black dark:bg-zinc-900 dark:text-white">
