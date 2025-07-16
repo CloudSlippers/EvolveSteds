@@ -16,11 +16,11 @@ export function generateStaticParams() {
 }
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-export default function ProductPage({ params }: Props) {
-  const { id } = params;
+export default async function ProductPage({ params }: Props) {
+  const { id } = await params;
   const product = products.find((p) => p.id.toString() === id);
 
   if (!product) {
