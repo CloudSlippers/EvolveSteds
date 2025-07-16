@@ -2,7 +2,7 @@ import productsData from '@/data/products.json';
 import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
-type Product = {
+type RawProduct = {
   id: number;
   title: string;
   image: string;
@@ -10,13 +10,17 @@ type Product = {
   originalPrice: string | null;
   link: string;
   isOnSale: boolean;
-  category: string; // assume always present now
+  category?: string;
 };
 
-const products: Product[] = productsData as Product[];
+type Product = RawProduct & {
+  category: string;
+};
+
+const products = productsData as RawProduct[];
 
 export function generateStaticParams() {
-  return products.map(p => ({
+  return products.map((p) => ({
     id: p.id.toString(),
   }));
 }
@@ -28,8 +32,10 @@ type Props = {
 export default async function ProductPage({ params }: Props) {
   const { id } = params;
 
-  // Simulate async fetch if needed; otherwise just sync find works too
-  const product = products.find(p => p.id.toString() === id);
+  // fake async fetch
+  const product = await new Promise<Product | undefined>((resolve) => {
+    resolve(products.find((p) => p.id.toString() === id));
+  });
 
   if (!product) {
     return <div>Product not found.</div>;
