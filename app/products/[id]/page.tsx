@@ -3,8 +3,19 @@ import Image from 'next/image';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { inferCategory } from '@/scripts/inferCategory';
 
-// Map once with inferred category
-const products = productsData.map(p => ({
+type Product = {
+  id: number;
+  title: string;
+  image: string;
+  price: string;
+  originalPrice: string | null;
+  link: string;
+  isOnSale: boolean;
+  category: string;
+};
+
+// map with category added and typed
+const products: Product[] = productsData.map(p => ({
   ...p,
   category: p.category ?? inferCategory(p.title)
 }));
